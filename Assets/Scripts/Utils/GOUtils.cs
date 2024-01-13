@@ -1,3 +1,6 @@
+using UnityEngine;
+using XLua;
+
 [LuaCallCSharp]
 public static class GOUtils
 {
