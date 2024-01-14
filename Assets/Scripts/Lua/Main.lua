@@ -1,4 +1,6 @@
 require("InitClass")
 require("FrameWork/System")
+UIMgr = require("UI/UIMgr")
 require("UI/UIBase")
-require("UI/UITest")
+
+UIMgr:OpenUI("UITest")
