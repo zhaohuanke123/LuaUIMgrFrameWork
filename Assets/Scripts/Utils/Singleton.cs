@@ -8,7 +8,7 @@ public abstract class Singleton<T> where T : new()
 {
     // 饿汉式, 线程安全
     private static Lazy<T> _instance = new Lazy<T>(() => new T());
-    public static T instance => _instance.Value;
+    public static T Instance => _instance.Value;
 }
 
 // Unity单例

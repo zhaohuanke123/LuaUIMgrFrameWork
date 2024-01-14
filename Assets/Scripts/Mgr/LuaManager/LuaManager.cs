@@ -11,10 +11,7 @@ public class LuaManager : Singleton<LuaManager>
     /// <summary>
     /// 得到lua中的_G表
     /// </summary>
-    public LuaTable Global
-    {
-        get { return luaEnv.Global; }
-    }
+    public LuaTable Global => luaEnv.Global;
 
     public void Init()
     {
@@ -37,7 +34,6 @@ public class LuaManager : Singleton<LuaManager>
             luaEnv.DoString(luaScript);
         else
             Debug.Log("解析器为空");
-        
     }
 
     /// <summary>

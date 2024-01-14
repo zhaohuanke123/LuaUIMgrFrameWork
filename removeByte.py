@@ -8,9 +8,9 @@ import sys
 def removeByte(path):
     for root, dirs, files in os.walk(path):
         for file in files:
-            if file.endswith(".bytes"):
+            if file.endswith(".txt"):
                 os.rename(os.path.join(root, file),
-                          os.path.join(root, file[:-6]))
+                          os.path.join(root, file[:-4]))
 
 
 if __name__ == "__main__":
