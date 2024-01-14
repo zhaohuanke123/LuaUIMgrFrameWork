@@ -4,7 +4,7 @@ using System.IO;
 using UnityEngine;
 using XLua;
 
-public class LuaManager : Singleton<LuaManager>
+public class LuaMgr : Singleton<LuaMgr>
 {
     private LuaEnv luaEnv;
 
@@ -57,7 +57,7 @@ public class LuaManager : Singleton<LuaManager>
         //// 加载lua文件
         //TextAsset textAsset = assetBundle.LoadAsset<TextAsset>(filePath + ".lua");
 
-        TextAsset textAsset = ABManager.Instance.LoadRes<TextAsset>("lua", filePath + ".lua");
+        TextAsset textAsset = ABMgr.Instance.LoadRes<TextAsset>("lua", filePath + ".lua");
         if (textAsset != null)
             // 加载byte[]
             return textAsset.bytes;

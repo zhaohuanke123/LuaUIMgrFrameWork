@@ -7,7 +7,7 @@ using UnityEngine.Events;
 /// <summary>
 /// ab包的特点 ：不能重复加载
 /// </summary>
-public class ABManager : UnitySingleton<ABManager>
+public class ABMgr : UnitySingleton<ABMgr>
 {
     // 主包
     private AssetBundle mainAB = null;
@@ -22,21 +22,23 @@ public class ABManager : UnitySingleton<ABManager>
 
     private string currentPath = null;
 
-    /// <summary>
-    /// 不一定会使用Application.streamingAssetsPath
-    /// 比较常用的是Application.persistentDataPath
-    /// 而且不同平台命名可能不一样 所以封装一个路径
-    /// </summary>
     public string CurrentPath
     {
         get
         {
             if (currentPath == null)
             {
-                currentPath = Application.streamingAssetsPath;
+#if UNITY_IOS
+                currentPath = Application.temporaryCachePath + "/";
+#elif UNITY_EDITOR
+                currentPath = Application.dataPath + "/ABPackage/";
+#elif UNITY_ANDROID || UNITY_PC
+                currentPath = Application.persistentDataPath + "/";
+#endif
+                // editor下
             }
 
-            return currentPath + "/";
+            return currentPath;
         }
         set { currentPath = value; }
     }
@@ -76,27 +78,27 @@ public class ABManager : UnitySingleton<ABManager>
     {
         // 加载之前 必须先获得依赖包的相关信息
         // 如果没加载过主包
-        if (mainAB == null)
-        {
-            // 1.加载主包
-            mainAB = AssetBundle.LoadFromFile(CurrentPath + MainABName);
-            // 2.加载manifest
-            manifest = mainAB.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
-        }
+        // if (mainAB == null)
+        // {
+        //     // 1.加载主包
+        //     mainAB = AssetBundle.LoadFromFile(CurrentPath + MainABName);
+        //     // 2.加载manifest
+        //     manifest = mainAB.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
+        // }
 
         // 3.获取依赖包
         AssetBundle ab;
-        string[] dependencies = manifest.GetAllDependencies(abName);
-        for (int i = 0; i < dependencies.Length; i++)
-        {
-            // 判断包是否加载过
-            if (!abDic.ContainsKey(dependencies[i]))
-            {
-                ab = AssetBundle.LoadFromFile(CurrentPath + dependencies[i]);
-                // 加入字典
-                abDic.Add(dependencies[i], ab);
-            }
-        }
+        // string[] dependencies = manifest.GetAllDependencies(abName);
+        // for (int i = 0; i < dependencies.Length; i++)
+        // {
+        //     // 判断包是否加载过
+        //     if (!abDic.ContainsKey(dependencies[i]))
+        //     {
+        //         ab = AssetBundle.LoadFromFile(CurrentPath + dependencies[i]);
+        //         // 加入字典
+        //         abDic.Add(dependencies[i], ab);
+        //     }
+        // }
 
         // 4.加载目标包 也是先判断一遍字典
         if (!abDic.ContainsKey(abName))

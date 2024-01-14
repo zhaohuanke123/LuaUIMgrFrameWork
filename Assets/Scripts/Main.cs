@@ -7,16 +7,18 @@ namespace DefaultNamespace
     {
         private void Awake()
         {
+            this.gameObject.AddComponent<ABMgr>();
+            
             // 初始化Lua解析器
-            LuaManager.Instance.Init();
+            LuaMgr.Instance.Init();
             // 加载Lua脚本
-            LuaManager.Instance.DoLuaFile("Main");
+            LuaMgr.Instance.DoLuaFile("Main");
         }
 
         private void OnDestroy()
         {
             // 销毁Lua解析器
-            LuaManager.Instance.Dispose();
+            LuaMgr.Instance.Dispose();
         }
     }
 }
