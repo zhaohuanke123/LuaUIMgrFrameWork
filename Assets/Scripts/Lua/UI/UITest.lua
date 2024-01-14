@@ -8,4 +8,3 @@ function UITest:ctor()
         self.Text.text = "Hello World"
     end)
 end
-

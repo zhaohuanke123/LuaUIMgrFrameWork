@@ -5,3 +5,4 @@ function UIBase:ctor(abName, uiName)
     self.uiName = uiName
     self.panelObj = ABMgr:LoadRes(abName, uiName)
 end 
+
